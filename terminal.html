@@ -12,53 +12,61 @@
   <div id="terminal"></div>
   <input id="input" type="text" autofocus />
   <script>
-    const terminal = document.getElementById("terminal");
-    const input = document.getElementById("input");
-
-    let files = [];
-
-    const commands = {
-      help: () => "Available commands: ls, mkdir <name>, winver, neofetch, clear, help",
-      ls: () => files.length > 0 ? files.join("\n") : "No files or directories.",
-      mkdir: (name) => {
-        if (!name) return "mkdir: missing operand";
-        if (files.includes(name)) return "mkdir: cannot create directory '" + name + "': File exists";
-        files.push(name);
-        return `Directory '${name}' created.`;
-      },
-      winver: () => "Web Terminal v0.1.0 (JavaScript Edition, Copyright 128Projects 2024)",
-      neofetch: () => [
-        "OS: 128WebOS (browser-based)",
-        "Kernel: JavaScript 1.0",
-        "Uptime: " + Math.floor(performance.now() / 1000) + " seconds",
-        "Resolution: 1024x768 (or your window size)",
-        "Theme: ASCII-Black"
-      ].join("\n"),
-      clear: () => {
-        terminal.innerHTML = "";
-        return "";
-      }
-    };
-
-    function handleInput(commandLine) {
-      const [command, ...args] = commandLine.trim().split(" ");
-      const output = commands[command] ? commands[command](...args) : `Unknown command: ${command}`;
-      appendOutput(commandLine, output);
-    }
-
-    function appendOutput(commandLine, output) {
-      terminal.innerHTML += `<div>> ${commandLine}</div><div>${output}</div>`;
-      terminal.scrollTop = terminal.scrollHeight;
-    }
-
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        const commandLine = input.value;
-        input.value = "";
-        handleInput(commandLine);
-      }
-    });
-
+const commands = {
+  help: () => "Available commands: ls, mkdir <name>, winver, neofetch, clear, help",
+  ls: () => files.length > 0 ? files.join("\n") : "No files or directories.",
+  mkdir: (name) => {
+    if (!name) return "mkdir: missing operand";
+    if (files.includes(name)) return "mkdir: cannot create directory '" + name + "': File exists";
+    files.push(name);
+    return `Directory '${name}' created.`;
+  },
+  winver: () => "Web Terminal v0.1.0 (JavaScript Edition)",
+  neofetch: () => [
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@**(@@**@@@@@@@@@@@@@@@@@@@@@@@@((@% @@&/#@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@*/@&@@@@(#*@@@@@@@@@@@@@@@@@@@@@&. @ @@@@@&,%@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@/***/&%*(@@@@@/****&@@@@@@@@@@@@@@%&&/@@@@#&  &@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@**(@@&@%@*&@/***(@@&&&@*/@@@@@@@@@@/#@&*.@ @/ &@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@&**@&*@@@@@@@&*@&@(*@@@@@@@@(*@@@@@ *%*%/*&@@ #%@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@#*&*#@&@@@@@(*@@@@@/*@@@%**(@%&&/@,@@@@ @ @@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@//@@@@%*(&@@@@@&@&%&@&(,&@.@,@@*..%@@((@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@&%*&@&*/&@@@(**&@@@@@@ @@@& @/@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@*/(#***(@@,@@@@@@@@@( #@(@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@%*%@@&@@@@@@@@@@@@@@@,@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
+    "OS: WebOS (browser-based)",
+    "Kernel: JavaScript 1.0",
+    "Uptime: " + Math.floor(performance.now() / 1000) + " seconds",
+    "Resolution: 1024x768 (or your window size)",
+    "Theme: ASCII-Black"
+  ].join("\n"),
+  clear: () => {
+    terminal.innerHTML = "";
+    return "";
+  }
+};
     appendOutput("", "Welcome to the Web Terminal! Type 'help' to get started.");
   </script>
 </body>
