@@ -53,35 +53,42 @@
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
 
+        // Generate a random user tag from the provided letters
         function generateUserTag() {
             let tag = "user_";
             const uniqueTags = new Set();
 
-            while (uniqueTags.size < 10) { 
+            // Create a simple random selection of letters
+            while (uniqueTags.size < 10) { // Limit the number of unique tags
                 let shuffled = letters.sort(() => Math.random() - 0.5).join('');
                 uniqueTags.add(shuffled);
             }
 
+            // Pick one random tag from the generated unique tags
             const tagArray = Array.from(uniqueTags);
             tag += tagArray[Math.floor(Math.random() * tagArray.length)];
 
             return tag;
         }
 
+        // Set the initial user tag
         userTagInput.value = generateUserTag();
 
+        // Function to send message
         sendButton.addEventListener('click', () => {
             const messageText = userInput.value.trim();
             if (messageText) {
+                // Create and display the message
                 const messageDiv = document.createElement('div');
                 messageDiv.classList.add('message');
                 messageDiv.textContent = `${userTagInput.value}: ${messageText}`;
                 messagesDiv.appendChild(messageDiv);
-                userInput.value = '';
-                messagesDiv.scrollTop = messagesDiv.scrollHeight; 
+                userInput.value = ''; // Clear input
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll to the bottom
             }
         });
 
+        // Allow sending message with Enter key
         userInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
                 sendButton.click();
